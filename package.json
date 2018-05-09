@@ -2,7 +2,7 @@
   "name": "debateroom-heroku",
   "version": "1.0.0",
   "description": "DebateRoom dependencies",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
     "eslint": "^4.19.1"
   },
