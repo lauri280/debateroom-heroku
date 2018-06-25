@@ -4,7 +4,10 @@
   "description": "DebateRoom dependencies",
   "main": "server.js",
   "dependencies": {
-    "eslint": "^4.19.1"
+    "body-parser": "^1.18.3",
+    "eslint": "^4.19.1",
+    "express": "^4.16.3",
+    "request": "^2.87.0"
   },
   "devDependencies": {},
   "scripts": {
