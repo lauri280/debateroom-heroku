@@ -75,6 +75,7 @@
 .people h2 {
     color: #1439e0;
     margin-top: 0px;
+    text-align: center;
 }
 
 .people p {
@@ -98,6 +99,7 @@
 .teams h2 {
     color: #1439e0;
     margin-top: 0px;
+    text-align: center;
 }
 
 .adjudicators {
@@ -109,6 +111,7 @@
 .adjudicators h2 {
     color: #1439e0;
     margin-top: 0px;
+    text-align: center;
 }
 
 .results {
