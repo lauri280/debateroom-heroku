@@ -1,29 +1,83 @@
+
+/*Mobile content view*/
 #content {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
     grid-auto-rows: minmax(150px, auto);
     margin: 0 auto;
     max-width: 960px;
     grid-template-areas:
-    "entry people teams adjudicators"
-    "entry people teams adjudicators"
-    "entry command results results"
-    "entry command results results"
-    ". . footer footer";
-}
-
-#content > * {
-    padding: 20px;
-    /*box-shadow: 5px 5px 20px rgb(51, 51, 51);*/
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    "entry"
+    "people"
+    "teams"
+    "adjudicators"
+    "command"
+    "results";
 }
 
 .entry {
     grid-area: entry;
+    padding: 20px;
     background: linear-gradient(#1439e0, #102ca5);
     color: white;
     z-index: 1;
     box-shadow: 5px 5px 20px rgb(51, 51, 51);
+}
+
+.people {
+    grid-area: people;
+    padding: 20px;
+    background: linear-gradient(#f5f5f5, rgb(226, 226, 226));
+    border-bottom: 2px solid #1439e0;
+    box-shadow: 5px 5px 20px rgb(51, 51, 51);
+}
+
+.command {
+    grid-area: command;
+    padding: 20px;
+    background: #1439e0;
+    box-shadow: 5px 5px 20px rgb(51, 51, 51);
+    border-bottom: 2px solid white;
+}
+
+.teams {
+    grid-area: teams;
+    padding: 20px;
+    background: linear-gradient(whitesmoke, rgb(226, 226, 226));
+    border-bottom: 2px solid #1439e0;
+    box-shadow: 5px 5px 20px rgb(51, 51, 51);
+}
+
+/*Bigger screens*/
+@media screen and (min-width: 760px) {
+    #content {
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(150px, auto);
+        grid-template-areas:
+        "entry people teams adjudicators"
+        "entry people teams adjudicators"
+        "entry command results results"
+        "entry command results results"
+        ". . footer footer";
+    }
+
+    .people {
+        border-right: 2px solid #1439e0;
+    }
+
+    .command {
+        border-right: 2px solid white;
+        box-shadow: 5px 5px 20px rgb(51, 51, 51);
+        background: linear-gradient(#1439e0, #102ca5);
+    }
+
+    .teams {
+        border-right: 2px solid #1439e0;
+    }
+}
+
+#content > * {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .entry h1 {
@@ -66,12 +120,6 @@
     margin-right: auto;
 }
 
-.people {
-    grid-area: people;
-    background: linear-gradient(#f5f5f5, rgb(226, 226, 226));
-    border-right: 2px solid #1439e0;
-}
-
 .people h2 {
     color: #1439e0;
     margin-top: 0px;
@@ -83,19 +131,6 @@
     margin: 5px;
 }
 
-.command {
-    grid-area: command;
-    background: linear-gradient(#1439e0, #102ca5);
-    border-right: 2px solid white;
-    box-shadow: 5px 5px 20px rgb(51, 51, 51);
-}
-
-.teams {
-    grid-area: teams;
-    background: linear-gradient(whitesmoke, rgb(226, 226, 226));
-    border-right: 2px solid #1439e0;
-}
-
 .teams h2 {
     color: #1439e0;
     margin-top: 0px;
@@ -104,6 +139,7 @@
 
 .adjudicators {
     grid-area: adjudicators;
+    padding: 20px;
     background: linear-gradient(whitesmoke, rgb(226, 226, 226));
     box-shadow: 5px 5px 20px rgb(51, 51, 51);
 }
@@ -128,39 +164,26 @@
 
 .og {
     grid-area: og;
-    margin-top: -20px;
-    margin-left: -20px;
-    margin-bottom: 10px;
     border-right: 2px solid white;
     border-bottom: 2px solid white;
 }
 
 .oo {
     grid-area: oo;
-    margin-right: -20px;
-    margin-top: -20px;
-    margin-bottom: 10px;
     border-bottom: 2px solid white;
 }
 
 .cg {
     grid-area: cg;
-    margin-left: -20px;
-    margin-top: -10px;
     border-right: 2px solid white;
 }
 
 .co {
     grid-area: co;
-    margin-right: -20px;
-    margin-top: -10px;
 }
 
 .adj {
     grid-area: adj;
-    margin-left: -20px;
-    margin-bottom: -20px;
-    margin-right: -20px;
     border-top: 2px solid white;
 }
 
