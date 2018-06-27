@@ -1,3 +1,6 @@
+body {
+    margin: 0px;
+}
 
 /*Mobile content view*/
 #content {
@@ -21,7 +24,7 @@
     background: linear-gradient(#1439e0, #102ca5);
     color: white;
     z-index: 1;
-    box-shadow: 5px 5px 20px rgb(51, 51, 51);
+    box-shadow: 0px 5px 20px rgb(51, 51, 51);
 }
 
 .people {
