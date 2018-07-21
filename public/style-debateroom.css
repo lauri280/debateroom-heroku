@@ -37,7 +37,6 @@ body {
 
 .command {
     grid-area: command;
-    /*padding: 20px;*/
     background: #1439e0;
     box-shadow: 5px 5px 20px rgb(51, 51, 51);
     border-bottom: 2px solid white;
