@@ -4,5 +4,6 @@ let buttonLisa = $("#lisa");
 
 buttonLisa.on("click", function() {
     console.log("vajutus");
-    $(".people").append($("#name"));
+    let name = $("#name").val();
+    $(".people").append($(`<p>${name}</p>`));
 });
