@@ -1,9 +1,7 @@
-// Kendo UI listboxide jaoks
-
 let buttonLisa = $("#lisa");
 
 buttonLisa.on("click", function() {
-    console.log("vajutus");
+    console.log("vajutus"); /* ajutine */
     let name = $("#name").val();
-    $(".people").append($(`<p>${name}</p>`));
+    $(".people-list").append($(`<li>${name}</li>`));
 });
