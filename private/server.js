@@ -12,6 +12,10 @@ app.get('/', function(req, res) {
     res.sendFile('debateroom');
 });
 
+app.get('/countdown', function(req, res) {
+    res.sendFile('countdown');
+});
+
 
 app.listen(app.get('port'), function() {
     console.log('Listening on port ' + app.get('port'));
