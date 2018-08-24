@@ -13,7 +13,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/countdown', function(req, res) {
-    res.sendFile('countdown');
+    res.sendFile('countdown.html', { root: __dirname });
 });
 
 
