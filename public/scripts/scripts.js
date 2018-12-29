@@ -1,14 +1,22 @@
 let osalejad = [];
+let tiimid = []
+let kohtunikud = []
 
 // osaleja nime lisamine "osalejad" array'sse nupu või enter klahviga
 // ja kuvamine osalejate nimekirjas
 $("#lisa").on("click", function() {
     let name = $("#name").val();
-    osalejad.push(name);
+    // kontrolli staatust (algaja/kogenu) ja osaleja lisamine
+    if ($("#beginnerChkbox").is(":checked")) {
+        osalejad.push({"nimi": name, "staatus": "algaja"})
+    } else {
+        osalejad.push({"nimi": name, "staatus": "kogenu"})
+    }
 
+    // kuvamine
     $(".people-list").empty();
     osalejad.forEach(element => {
-        $(".people-list").append($(`<li>${element}</li>`));
+        $(".people-list").append($(`<li>${element["nimi"]}</li>`));
     });
 
     $("#name").val("");
@@ -27,18 +35,4 @@ $("#positsioonid").on("click", function() {
 });
 
 
-let testNimi = $("#testNimi");
-
-testNimi.on("mouseenter", function() {
-    
-});
-
-// "osalejad" listi elemendi valimine ja tegevused
-testNimi.on("click", function() {
-    if ($(this).css("opacity") == "1") {
-        testNimi.css({"background": "#dfdbdb"});
-    } else {
-        testNimi.css({"background": "none"});
-    }
-    
-});
+// contextMenu, et osalejate nimekirjas olevate nimedega tegeleda
