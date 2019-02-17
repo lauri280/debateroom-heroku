@@ -69,8 +69,8 @@ function annaRollid (osalejateList) {
 
 
 function looRuum () {
-    if (osalejad.length > 9) {
-        let rollid = annaRollid(osalejad)
+    if (osalejad.length >= 9) {
+        let rollid = annaRollid(osalejad);
         console.log(rollid);
     }
 }
