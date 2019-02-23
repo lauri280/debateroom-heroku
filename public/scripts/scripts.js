@@ -39,8 +39,7 @@ $("#name").keypress(function(e) {
 $("#positsioonid").on("click", function() {
     if (osalejad.length >= 9) {
         $(".debater").remove();
-        //kuvaRuum(looRuum(osalejad));
-        sorteeriOsalejad(osalejad);
+        kuvaRuum(looRuum(osalejad));
     }
 });
 
