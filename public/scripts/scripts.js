@@ -9,11 +9,14 @@ let kohtunikud = [];
 $("#lisa").on("click", function() {
     let name = $("#name").val();
     // kontrolli staatust (algaja/kogenu) ja osaleja lisamine
-    if ($("#beginnerChkbox").is(":checked")) {
-        osalejad.push({"nimi": name, "staatus": "algaja"})
-    } else {
-        osalejad.push({"nimi": name, "staatus": "kogenu"})
+    if (name !== "") {
+        if ($("#beginnerChkbox").is(":checked")) {
+            osalejad.push({"nimi": name, "staatus": "algaja"})
+        } else {
+            osalejad.push({"nimi": name, "staatus": "kogenu"})
+        }
     }
+    
 
     // kuvamine
     $(".people-list").empty();
@@ -32,9 +35,13 @@ $("#name").keypress(function(e) {
     }
 });
 
-// ajutine "määra positioonid" nupu fn
+// "määra positioonid" nupu fn
 $("#positsioonid").on("click", function() {
-    console.log(looRuum());
+    if (osalejad.length >= 9) {
+        $(".debater").remove();
+        //kuvaRuum(looRuum(osalejad));
+        sorteeriOsalejad(osalejad);
+    }
 });
 
 
@@ -68,12 +75,54 @@ function annaRollid (osalejateList) {
 }
 
 
-function looRuum () {
-    if (osalejad.length >= 9) {
-        let rollid = annaRollid(osalejad);
-        console.log(rollid);
-    }
+
+// fn tagastab osalejate listi, kus on eraldi kogenud ja algajad
+function sorteeriOsalejad (osalejateList) {
+    let tulem = [];
+    let kogenud = [];
+    let algajad = [];
+
+    osalejateList.forEach(element => {
+        if (element["staatus"] === "kogenu") {
+            kogenud.push(element);
+        } else {
+            algajad.push(element);
+        }
+    });
+
+    tulem.push(kogenud);
+    tulem.push(algajad);
+    console.log(tulem);
+    return tulem;
 }
+
+function kuvaRuum (ruum) {
+    $(".og").append($(`<p>${ruum[0][0][0]["nimi"]}</p>`).addClass("debater"));
+    $(".og").append($(`<p>${ruum[0][0][1]["nimi"]}</p>`).addClass("debater"));
+
+    $(".oo").append($(`<p>${ruum[0][1][0]["nimi"]}</p>`).addClass("debater"));
+    $(".oo").append($(`<p>${ruum[0][1][1]["nimi"]}</p>`).addClass("debater"));
+
+    $(".cg").append($(`<p>${ruum[0][2][0]["nimi"]}</p>`).addClass("debater"));
+    $(".cg").append($(`<p>${ruum[0][2][1]["nimi"]}</p>`).addClass("debater"));
+
+    $(".co").append($(`<p>${ruum[0][3][0]["nimi"]}</p>`).addClass("debater"));
+    $(".co").append($(`<p>${ruum[0][3][1]["nimi"]}</p>`).addClass("debater"));
+
+    let adjString = ""
+    ruum[1].forEach(element => {
+        adjString = adjString + element["nimi"] + ", ";
+    });
+    let newAdjString = adjString.substring(0, adjString.length - 2);
+    $(".adj").append($(`<p>${newAdjString}</p>`).addClass("debater"));
+
+}
+
+
+
+
+
+
 
 // stackoverflow'st array shuffle (Durstenfeld shuffle)
 function shuffleArray(array) {
