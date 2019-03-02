@@ -3,6 +3,20 @@ let vaitlejad = [];
 let tiimid = [];
 let kohtunikud = [];
 
+// for science
+let testSortedArray = 
+    [
+    [{"nimi": "11", "staatus": "kogenu"},
+    {"nimi": "22", "staatus": "kogenu"},
+    {"nimi": "33", "staatus": "kogenu"},
+    {"nimi": "44", "staatus": "kogenu"},
+    {"nimi": "55", "staatus": "kogenu"}],
+    [{"nimi": "66", "staatus": "algaja"},
+    {"nimi": "77", "staatus": "algaja"},
+    {"nimi": "88", "staatus": "algaja"},
+    {"nimi": "99", "staatus": "algaja"}]
+    ];
+
 
 // osaleja nime lisamine "osalejad" array'sse nupu või enter klahviga
 // ja kuvamine osalejate nimekirjas
@@ -39,16 +53,16 @@ $("#name").keypress(function(e) {
 $("#positsioonid").on("click", function() {
     if (osalejad.length >= 9) {
         $(".debater").remove();
-        kuvaRuum(annaRollid(osalejad));
+        kuvaRuum(annaRollid(sorteeriOsalejad(osalejad)));
     }
 });
 
 
 // contextMenu, et osalejate nimekirjas olevate nimedega tegeleda
 
-
 // --- Ruumi loomise funktsioonid ---
 
+/*
 // tagastab tiimid ja kohtunikud
 function annaRollid (osalejateList) {
     let newOsalejad = osalejateList.slice();
@@ -72,6 +86,60 @@ function annaRollid (osalejateList) {
     tulem.push(kohtunikud);
     return tulem;
 }
+*/
+
+function annaRollid (sortedOsalejad) { // võtab argumendiks juba sorteeritud array
+
+    let tulem = [];
+    let finalTiimid = [];
+    let finalKohtunikud = [];
+
+    let tempOsalejaList = sortedOsalejad.slice();
+    shuffleArray(tempOsalejaList[0]);
+    shuffleArray(tempOsalejaList[1]);
+        
+    // esmalt lisab kohtuniku
+    if (tempOsalejaList[0].length > 0) {
+        finalKohtunikud.push(tempOsalejaList[0].pop());
+    } else {
+        finalKohtunikud.push(tempOsalejaList[1].pop());
+    }
+
+    // loob tiimid, eelistatult kogenu-algaja
+    while (finalTiimid.length < 4) {
+        let tiim = [];
+
+        if (tempOsalejaList[0].length > 0 && tempOsalejaList[1].length > 0) {
+            tiim.push(tempOsalejaList[0].pop(), tempOsalejaList[1].pop());
+        } else if (tempOsalejaList[0].length > 1 && tempOsalejaList[1].length == 0) {
+            tiim.push(tempOsalejaList[0].pop(), tempOsalejaList[0].pop());
+        } else if (tempOsalejaList[0].length == 0 && tempOsalejaList[1].length > 1) {
+            tiim.push(tempOsalejaList[1].pop(), tempOsalejaList[1].pop());
+        } else {
+            console.log("Error with creating teams!");
+        }
+
+        finalTiimid.push(tiim);
+    }
+
+    // ülejäänud määrab kohtunikuks
+    if (tempOsalejaList[0].length > 0) {
+        tempOsalejaList[0].forEach(element => {
+            finalKohtunikud.push(element);
+            tempOsalejaList[0].shift();
+        });
+    }
+    if (tempOsalejaList[1].length > 0) {
+        tempOsalejaList[1].forEach(element => {
+            finalKohtunikud.push(element);
+            tempOsalejaList[1].shift();
+        });
+    }
+
+    tulem.push(finalTiimid);
+    tulem.push(finalKohtunikud);
+    return tulem;
+}
 
 
 
@@ -91,7 +159,6 @@ function sorteeriOsalejad (osalejateList) {
 
     tulem.push(kogenud);
     tulem.push(algajad);
-    console.log(tulem);
     return tulem;
 }
 
