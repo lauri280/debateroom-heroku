@@ -225,11 +225,12 @@ body {
 
 .footer {
     grid-area: footer;
+    max-height: 30px;
 }
 
 .footer p {
-    margin: -10px;
     text-align: right;
+    color: #1439e0;
 }
 
 .person {
