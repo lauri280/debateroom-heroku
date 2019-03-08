@@ -97,13 +97,18 @@ function annaRollid (sortedOsalejad) { // võtab argumendiks juba sorteeritud ar
     let tempOsalejaList = sortedOsalejad.slice();
     shuffleArray(tempOsalejaList[0]);
     shuffleArray(tempOsalejaList[1]);
+
+    // siia tuleb osa, mis võtab eelnevalt määratud tiimid ja kohtunikud
         
     // esmalt lisab kohtuniku
-    if (tempOsalejaList[0].length > 0) {
-        finalKohtunikud.push(tempOsalejaList[0].pop());
-    } else {
-        finalKohtunikud.push(tempOsalejaList[1].pop());
+    if (finalKohtunikud.length == 0) {
+        if (tempOsalejaList[0].length > 0) {
+            finalKohtunikud.push(tempOsalejaList[0].pop());
+        } else {
+            finalKohtunikud.push(tempOsalejaList[1].pop());
+        }
     }
+
 
     // loob tiimid, eelistatult kogenu-algaja
     while (finalTiimid.length < 4) {

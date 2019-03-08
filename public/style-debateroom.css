@@ -153,6 +153,10 @@ body {
     max-height: 85%;
 }
 
+#remove {
+    color: blue;
+}
+
 .people-list {
     color: #1439e0;
     list-style-type: none;
