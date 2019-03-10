@@ -23,7 +23,7 @@ let testSortedArray =
 $("#lisa").on("click", function() {
     let name = $("#name").val();
     // kontrolli staatust (algaja/kogenu) ja osaleja lisamine
-    if (name !== "") {
+    if (name !== "" && onOsalejateHulgas(name, osalejad) == false) {
         if ($("#beginnerChkbox").is(":checked")) {
             osalejad.push({"nimi": name, "staatus": "algaja"})
         } else {
@@ -36,7 +36,7 @@ $("#lisa").on("click", function() {
     $(".people-list").empty();
     osalejad.forEach(element => {
         $(".people-list").append($(`<li>${element["nimi"]}</li>`)
-        .addClass("person"));
+       .addClass("person"));
     });
 
     $("#name").val("");
@@ -49,6 +49,19 @@ $("#name").keypress(function(e) {
     }
 });
 
+// fn, mis tagastab selle, kas nimi on osalejate hulgas või mitte
+function onOsalejateHulgas(nimi, osalejateList) {
+    let onOlemas = false;
+
+    osalejateList.forEach(element => {
+        if (element.nimi == nimi) {
+            onOlemas = true;
+        }
+    });
+
+    return onOlemas;
+}
+
 // "määra positioonid" nupu fn
 $("#positsioonid").on("click", function() {
     if (osalejad.length >= 9) {
@@ -57,6 +70,30 @@ $("#positsioonid").on("click", function() {
     }
 });
 
+// "eemalda" nupu fn
+$("#eemalda").on("click", function() {
+    // leiab selected elemendid, selle järgi objekti ja eemaldab selle osalejad arrayst
+    $(".selected").each(function() {
+        let index = osalejad.findIndex(x => x.nimi==$(this).text());
+        osalejad.splice(index, 1);
+    });
+
+    $(".people-list").empty(); // selle asja peaks ka eraldi funktsioon liigutama
+    osalejad.forEach(element => {
+        $(".people-list").append($(`<li>${element["nimi"]}</li>`)
+       .addClass("person"));
+    });
+});
+
+
+// nimede select'imine
+$(document).click(function(event) {
+    if ($(event.target).hasClass("person") && !($(event.target).hasClass("selected"))) {
+        $(event.target).addClass("selected");
+    } else if ($(event.target).hasClass("person") && ($(event.target).hasClass("selected"))) {
+        $(event.target).removeClass("selected");
+    }
+});
 
 // contextMenu, et osalejate nimekirjas olevate nimedega tegeleda
 

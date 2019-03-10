@@ -42,7 +42,7 @@ body {
     border-bottom: 2px solid white;
 }
 
-#positsioonid {
+.command button {
     background: transparent;
     color: white;
     padding: 10px;
@@ -153,10 +153,6 @@ body {
     max-height: 85%;
 }
 
-#remove {
-    color: blue;
-}
-
 .people-list {
     color: #1439e0;
     list-style-type: none;
@@ -239,6 +235,11 @@ body {
 
 .person {
     color: #1439e0;
+    cursor: default;
+}
+
+.selected {
+    background: rgb(219, 217, 217);
 }
 
 .debater {
