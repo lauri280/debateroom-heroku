@@ -70,19 +70,41 @@ $("#positsioonid").on("click", function() {
     }
 });
 
+// "määra kohtunik" nupu fn
+$("#kohtunikuks").on("click", function() {
+    // leiab selected elemendid, selle järgi objekti ja lisab selle
+    // kohtunike array'sse, seejäreleemaldab selle osalejad arrayst
+    $(".selected").each(function() {
+        let index = osalejad.findIndex(x => x.nimi==$(this).text());
+        kohtunikud.push(osalejad[index]);
+        osalejad.splice(index, 1);
+    });
+
+    kuvaListid();
+});
+
+// "määra tiim" nupu fn
+$("#tiimi").on("click", function() {
+    
+});
+
 // "eemalda" nupu fn
 $("#eemalda").on("click", function() {
     // leiab selected elemendid, selle järgi objekti ja eemaldab selle osalejad arrayst
     $(".selected").each(function() {
-        let index = osalejad.findIndex(x => x.nimi==$(this).text());
-        osalejad.splice(index, 1);
+        if ($(this).parent().hasClass("adj-list")) {
+            let index = kohtunikud.findIndex(x => x.nimi==$(this).text());
+            osalejad.push(kohtunikud[index])
+            kohtunikud.splice(index, 1);
+        } else if ($(this).parent().hasClass("people-list")) {
+            let index = osalejad.findIndex(x => x.nimi==$(this).text());
+            osalejad.splice(index, 1);
+        }
+
+        // todo: if tiim -> liiguta osalejate hulka
     });
 
-    $(".people-list").empty(); // selle asja peaks ka eraldi funktsioon liigutama
-    osalejad.forEach(element => {
-        $(".people-list").append($(`<li>${element["nimi"]}</li>`)
-       .addClass("person"));
-    });
+    kuvaListid();
 });
 
 
@@ -95,35 +117,9 @@ $(document).click(function(event) {
     }
 });
 
-// contextMenu, et osalejate nimekirjas olevate nimedega tegeleda
-
 // --- Ruumi loomise funktsioonid ---
 
-/*
-// tagastab tiimid ja kohtunikud
-function annaRollid (osalejateList) {
-    let newOsalejad = osalejateList.slice();
-    shuffleArray(newOsalejad);
 
-    let tulem = [];
-    let tiimid = [];
-    let kohtunikud = [];
-
-    for (i = 0; i < 4; i++) {
-        let tiim = [];
-
-        tiim.push(newOsalejad.pop());
-        tiim.push(newOsalejad.pop());
-        tiimid.push(tiim);
-    }
-
-    kohtunikud = newOsalejad.slice();
-
-    tulem.push(tiimid);
-    tulem.push(kohtunikud);
-    return tulem;
-}
-*/
 
 function annaRollid (sortedOsalejad) { // võtab argumendiks juba sorteeritud array
 
@@ -135,7 +131,10 @@ function annaRollid (sortedOsalejad) { // võtab argumendiks juba sorteeritud ar
     shuffleArray(tempOsalejaList[0]);
     shuffleArray(tempOsalejaList[1]);
 
-    // siia tuleb osa, mis võtab eelnevalt määratud tiimid ja kohtunikud
+    // todo: siia tuleb osa, mis võtab eelnevalt määratud tiimid ja kohtunikud
+    kohtunikud.forEach(element => {
+        finalKohtunikud.push(element);
+    })
         
     // esmalt lisab kohtuniku
     if (finalKohtunikud.length == 0) {
@@ -202,6 +201,22 @@ function sorteeriOsalejad (osalejateList) {
     tulem.push(kogenud);
     tulem.push(algajad);
     return tulem;
+}
+
+// fn, mis lisab elemendid array'dest html listidesse
+function kuvaListid() {
+    $(".people-list").empty();
+    $(".adj-list").empty();
+
+    osalejad.forEach(element => {
+        $(".people-list").append($(`<li>${element["nimi"]}</li>`)
+       .addClass("person"));
+    });
+
+    kohtunikud.forEach(element => {
+        $(".adj-list").append($(`<li>${element["nimi"]}</li>`)
+       .addClass("person"));
+    });
 }
 
 function kuvaRuum (ruum) {
