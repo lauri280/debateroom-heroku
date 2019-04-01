@@ -3,20 +3,6 @@ let vaitlejad = [];
 let tiimid = [];
 let kohtunikud = [];
 
-// for science
-let testSortedArray = 
-    [
-    [{"nimi": "11", "staatus": "kogenu"},
-    {"nimi": "22", "staatus": "kogenu"},
-    {"nimi": "33", "staatus": "kogenu"},
-    {"nimi": "44", "staatus": "kogenu"},
-    {"nimi": "55", "staatus": "kogenu"}],
-    [{"nimi": "66", "staatus": "algaja"},
-    {"nimi": "77", "staatus": "algaja"},
-    {"nimi": "88", "staatus": "algaja"},
-    {"nimi": "99", "staatus": "algaja"}]
-    ];
-
 
 // osaleja nime lisamine "osalejad" array'sse nupu või enter klahviga
 // ja kuvamine osalejate nimekirjas
@@ -31,16 +17,10 @@ $("#lisa").on("click", function() {
         }
     }
     
-
-    // kuvamine
-    $(".people-list").empty();
-    osalejad.forEach(element => {
-        $(".people-list").append($(`<li>${element["nimi"]}</li>`)
-       .addClass("person"));
-    });
-
+    kuvaListid();
     $("#name").val("");
 });
+
 // enter klahvi fn
 $("#name").keypress(function(e) {
     if (e.which == 13) {
@@ -73,8 +53,8 @@ $("#positsioonid").on("click", function() {
 // "määra kohtunik" nupu fn
 $("#kohtunikuks").on("click", function() {
     // leiab selected elemendid, selle järgi objekti ja lisab selle
-    // kohtunike array'sse, seejäreleemaldab selle osalejad arrayst
-    $(".selected").each(function() {
+    // kohtunike array'sse, seejärel eemaldab selle osalejad arrayst
+    $(".selected").each(function() { // todo: peab kontrollima, et selected elem on õiges kohas
         let index = osalejad.findIndex(x => x.nimi==$(this).text());
         kohtunikud.push(osalejad[index]);
         osalejad.splice(index, 1);
@@ -85,8 +65,32 @@ $("#kohtunikuks").on("click", function() {
 
 // "määra tiim" nupu fn
 $("#tiimi").on("click", function() {
-    
+    let tiim = [];
+
+    if ($(".selected").length == 2 && selectedOnlyOsalejad() && tiimid.length < 4) {
+        $(".selected").each(function() {
+            let index = osalejad.findIndex(x => x.nimi==$(this).text());
+            tiim.push(osalejad[index]);
+            osalejad.splice(index, 1);
+        });
+    }
+
+    tiimid.push(tiim);
+    kuvaListid();
 });
+
+//fn, mis veendub, et selected elemendid on ainult osalejate seas
+function selectedOnlyOsalejad() {
+    let tulem = true;
+
+    $(".selected").each(function() {
+        if (!($(this).parent().hasClass("people-list"))) {
+            tulem = false;
+        }
+    });
+
+    return tulem;
+}
 
 // "eemalda" nupu fn
 $("#eemalda").on("click", function() {
@@ -219,6 +223,20 @@ function kuvaListid() {
     });
 }
 
+// fn, mis annab osalejate koguarvu
+function osalejaCount() {
+    let count = 0;
+
+    count += osalejad.length + kohtunikud.length;
+    tiimid.forEach(element => {
+        count += element.length;
+    });
+
+    return count;
+}
+
+// fn, mis võtab argumendiks array, mis sisaldab tiime ja kohtunikke
+// ja seejärel lisab need HTMLi
 function kuvaRuum (ruum) {
     $(".og").append($(`<p>${ruum[0][0][0]["nimi"]}</p>`).addClass("debater"));
     $(".og").append($(`<p>${ruum[0][0][1]["nimi"]}</p>`).addClass("debater"));
